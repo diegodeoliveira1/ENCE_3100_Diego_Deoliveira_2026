@@ -1,0 +1,62 @@
+module Counter_8Bit(
+	input ena,
+	input clk,
+	input clear,
+	output [7:0] count
+);
+
+	TFlipFlop TFF_0(
+	.T(SW[0]),
+	.clk(SW[9]),
+	.clear(SW[8]),
+	.Qt(LEDR[0])
+	);
+	
+	TFlipFlop TFF_1(
+	.T(SW[0]),
+	.clk(SW[9]),
+	.clear(SW[8]),
+	.Qt(LEDR[0])
+	);
+	
+	TFlipFlop TFF_2(
+	.T(SW[0]),
+	.clk(SW[9]),
+	.clear(SW[8]),
+	.Qt(LEDR[0])
+	);
+	
+	TFlipFlop TFF_3(
+	.T(SW[0]),
+	.clk(SW[9]),
+	.clear(SW[8]),
+	.Qt(LEDR[0])
+	);
+	
+	TFlipFlop TFF_4(
+	.T(SW[0]),
+	.clk(SW[9]),
+	.clear(SW[8]),
+	.Qt(LEDR[0])
+	);
+	
+	TFlipFlop TFF_5(
+	.T(SW[0]),
+	.clk(SW[9]),
+	.clear(SW[8]),
+	.Qt(LEDR[0])
+	);
+	
+	TFlipFlop TFF_6(
+	.T(SW[0]),
+	.clk(SW[9]),
+	.clear(SW[8]),
+	.Qt(LEDR[0])
+	);
+	
+	TFlipFlop TFF_7(
+	.T(SW[0]),
+	.clk(SW[9]),
+	.clear(SW[8]),
+	.Qt(LEDR[0])
+	);
