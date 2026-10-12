@@ -1,0 +1,84 @@
+module main (
+    input        CLOCK_50,
+    input  [9:0] SW,
+    input  [3:0] KEY,
+    output [9:0] LEDR
+);
+
+    // A register
+    reg [7:0] A_reg;
+
+    // Accumulator / S register
+    reg [7:0] S_reg;
+
+    // Overflow register
+    reg       Overflow_reg;
+
+    // Result of A_reg + S_reg
+    wire [7:0] sum;
+    wire       carry;
+
+
+    //==========================================================
+    // 8-bit adder
+    //
+    // Adds:
+    //     A_reg + S_reg + 0
+    //
+    // {carry, sum} gives:
+    //     carry = carry-out
+    //     sum   = 8-bit result
+    //==========================================================
+
+    assign {carry, sum} = A_reg + S_reg;
+
+
+    //==========================================================
+    // Registers
+    //
+    // KEY0 = active-low asynchronous reset
+    // KEY1 = active-low manual clock
+    //
+    // ~KEY[1] creates a positive edge when KEY1 is pressed.
+    //==========================================================
+
+    always @(posedge ~KEY[1] or negedge KEY[0]) begin
+
+        if (!KEY[0]) begin
+
+            // Reset
+            A_reg       <= 8'b0;
+            S_reg       <= 8'b0;
+            Overflow_reg <= 1'b0;
+
+        end
+        else begin
+
+            // Capture input A
+            A_reg <= SW[7:0];
+
+            // Accumulate
+            S_reg <= sum;
+
+            // Store carry-out
+            Overflow_reg <= carry;
+
+        end
+
+    end
+
+
+    //==========================================================
+    // Outputs
+    //==========================================================
+
+    // Accumulator result
+    assign LEDR[7:0] = S_reg;
+
+    // Overflow / carry-out
+    assign LEDR[8] = Overflow_reg;
+
+    // Unused LED
+    assign LEDR[9] = 1'b0;
+
+endmodule

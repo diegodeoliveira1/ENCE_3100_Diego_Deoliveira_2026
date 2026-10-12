@@ -1,0 +1,38 @@
+module accumulator_sub (
+    input  wire       clk,
+    input  wire       reset_n,
+    input  wire       load,
+    input  wire [7:0] A,
+    input  wire       add_sub,
+    output reg  [7:0] S,
+    output reg        Overflow
+);
+
+    reg [7:0] A_reg;
+
+    wire [7:0] A_modified;
+	 wire [8:0] add_result;
+
+	 assign A_modified = A ^ {8{add_sub}};
+
+	 assign add_result = {1'b0, S} + {1'b0, A_modified} + add_sub;
+
+    always @(posedge clk or negedge reset_n) begin
+        if (!reset_n) begin
+            A_reg    <= 8'b00000000;
+            S        <= 8'b00000000;
+            Overflow <= 1'b0;
+        end
+        else if (load) begin
+            // Capture switch input
+            A_reg <= A;
+
+            // Add or subtract
+            S <= add_result[7:0];
+
+            // Save carry-out
+            Overflow <= add_result[8];
+        end
+    end
+
+endmodule
