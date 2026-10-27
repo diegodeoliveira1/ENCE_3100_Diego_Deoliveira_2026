@@ -1,0 +1,9 @@
+
+State Machine - |main|state
+Name state.ST_F state.ST_E state.ST_D state.ST_C state.ST_B state.ST_A 
+state.ST_A 0 0 0 0 0 0 
+state.ST_B 0 0 0 0 1 1 
+state.ST_C 0 0 0 1 0 1 
+state.ST_D 0 0 1 0 0 1 
+state.ST_E 0 1 0 0 0 1 
+state.ST_F 1 0 0 0 0 1 
